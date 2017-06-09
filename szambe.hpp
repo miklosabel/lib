@@ -11,12 +11,13 @@
 class Szambe : public Widget
 {
 protected:
-    int max;
-    int min;    //intervallumok
-    int num;    //tarolt szam
+    int maxLimit;       //intervallumok
+    int minLimit;
+    int num;            //tarolt szam
     Statictext * st;    //szamot kiiro szovegmezo
-    std::vector<Button*> buttonvector;
-    bool selected; //maga a widget ki van-e valasztva
+    Button * increment;
+    Button * decrement;
+    bool selected;
 
 public:
     Szambe();
@@ -24,6 +25,9 @@ public:
 
     virtual void Draw() const;
     virtual void Handle(genv::event ev);
+
+    void IncrementNum();
+    void DecrementNum();
 };
 
 

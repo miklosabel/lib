@@ -9,11 +9,10 @@
 //nincs szovegdoboz
 //csak szoveget rajzol ki, szamot nem!! (jotanacs magamnak)
 
-class Statictext : public Widget 
+class Statictext : public Widget
 {
 protected:
     std::string s;
-    bool selected; //focused + egerkattintast tarolja
 
 public:
     Statictext();
@@ -26,13 +25,9 @@ public:
     void setText(std::string text);  //setter a kiirando ertekhez
                                 //megvaltoztatja a mereteket is
     std::string getText() const;
-    
-    bool isSelected() const;
-    void setSelected(bool b);
 
-    int getSizeX() const;       //kivalaszto hasznalja
-    void setSizeX(int sx);      
+
 };
 
 
-#endif //STATICTEXT_HPP
+#endif ///STATICTEXT_HPP

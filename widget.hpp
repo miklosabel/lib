@@ -1,7 +1,17 @@
 #ifndef WIDGET_HPP_INCLUDED
 #define WIDGET_HPP_INCLUDED
 
+#include <functional>
 #include "graphics.hpp"
+
+//struct funktor
+//{
+//    int c;
+//    int d;
+//    funktor(){};
+//    funktor(int &_c, int &_d);
+//    void operator()();
+//};
 
 class Widget
 {
@@ -10,30 +20,36 @@ protected:
     int itsY;
     int sizeX;
     int sizeY;
-    bool focused; //barmely widget erzekeli ha folotte van az eger
+    std::function<void()> callback;
+    ///lambdafv azert itt, mert igy minden widget tipust tud majd kezelni
+    //    funktor kacsa;
 
 public:
     Widget();                 //default konstruktor
-    Widget(int x, int y);       //kell egy ilyen is mert igazabol
-                                //a beadando felenel jottem ra hogy 
-                                //csak ezt hasznalnam, ha meg lenne irva
+    Widget(int x, int y);
     Widget(int x, int y, int sx, int sy);
 
     virtual void Draw() const;  //const mert nem akar/szabadneki valtoztatni semmin
-    virtual void Handle(genv::event ev);
-    
-    void setFocus(int mouseX, int mouseY);  //allandoan ellenprizni kell hogy folotte van-e az eger,
-                                            //ezert a leszarmazottak handle-ben fogjak hivni
-    virtual bool isFocused() const; //getter a focusedhoz
+    virtual void DrawContour(bool clicked) const;
 
-    virtual bool is_selected(int mouseX, int mouseY) const;
+    virtual void Handle(genv::event ev);
+    void HandleSelected(genv::event ev);
+
+    virtual bool Selected(int mouseX, int mouseY) const;
 
     int getY() const; //statictext hasznalja
     void setY(int y);
 
     void getter(int i) const;   //ezzel a main-bol is lekerdezhetjuk a widgetek kozos mezoit
                                 //i miatt for ciklusban erdemes hasznalni
-    
+
+    ///lambda
+    template<typename T>
+    void setCallBack(T&& _fn)
+    {
+        callback = _fn;
+    }
+
 
 
 

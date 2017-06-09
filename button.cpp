@@ -5,6 +5,18 @@
 using namespace std;
 using namespace genv;
 
+//funktor::funktor(int &_c, int &_d)
+//{
+//    c = _c;
+//    d = _d;
+//}
+
+//void funktor::operator()()
+//{
+//    d=c;
+//    cout<<"d:"<<d<<endl;
+//}
+
 Button::Button() : Widget() {}
 Button::Button(int x, int y, string _s) : Widget(x, y)
 {
@@ -13,29 +25,18 @@ Button::Button(int x, int y, string _s) : Widget(x, y)
     sizeY = gout.cascent() + gout.cdescent();
     pressed = false;
 }
-Button::Button(int x, int y, int sx, int sy, string _s, /*function<void()>*/funktor k)
-            : Widget(x, y, sx, sy)
-{
-    s = _s;
-    pressed = false;
-    kacsa = k;
-}
+Button::Button(int x, int y, int sx, int sy, string _s)
+            : Widget(x, y, sx, sy),
+            s(_s),
+            pressed(false) {}
+
 
 void Button::Draw() const
 {
-    if (pressed)
+    if (this -> pressed)
     {
         gout    << move_to(itsX, itsY)  //doboz rajzolasa lehet opcios feladat (textbox)
                 << color(112,150,111)
-                << box(sizeX,sizeY)
-                << move_to(itsX+gout.twidth(" "), itsY+gout.cascent())
-                << color(250,250,250)
-                << text(s);
-    }
-    else if(focused)
-    {
-        gout    << move_to(itsX, itsY)  //doboz rajzolasa lehet opcios feladat (textbox)
-                << color(112,136,111)
                 << box(sizeX,sizeY)
                 << move_to(itsX+gout.twidth(" "), itsY+gout.cascent())
                 << color(250,250,250)
@@ -54,33 +55,45 @@ void Button::Draw() const
 
 void Button::Handle(event ev)
 {
-    setFocus(ev.pos_x, ev.pos_y);
-    if( focused && ev.button == btn_left )
+    if (Selected(ev.pos_x, ev.pos_y))
     {
-        if(!pressed) Action();
-        pressed = true;    //a bekattintott gomb legyen megnyomva (nem jobb megoldas a pressed = !pressed?)
-    }
-    else if( (focused && ev.button == -btn_left ) || (!focused && ev. button == btn_left ))
-    {
-        pressed = false;  //felengedésre ne legyen megnyomva
-    }
+        if (ev.button == btn_left)
+        {
+            this -> pressed = true;
+        }
+        else
+        {
+            this -> pressed = false;
+        }
+        }
+    if(pressed) callback();
+
+//    if(ev.type == ev_mouse)
+//    {
+//        if(ev.button == btn_left && !pressed)
+//        {
+//            cout << "eger\n";
+//            if( Selected(ev.pos_x, ev.pos_y) )
+//            {
+//                callback();
+//                cout << "callback\n";
+//                this->pressed = true;
+//            }
+//            else
+//            {
+//                pressed = false;
+//            }
+//        } else if (ev.button == -btn_left) pressed = false;
+//    }
+
+
+//    else if( (focused && ev.button == -btn_left ) || (!focused && ev. button == btn_left ))
+//    {
+//        pressed = false;  //felengedésre ne legyen megnyomva
+//    }
 
 }
 
-void Button::Action()
-{
-    kacsa();
-}
-
-funktor::funktor(int &_c, int &_d)
-{
-    c = _c; d = _d;
-}
-
-void funktor::operator()()
-{
-    d=c;cout<<"d:"<<d<<endl;
-}
 
 bool Button::isPressed() const
 {
@@ -91,5 +104,10 @@ void Button::setX(int x)
 {
     itsX = x;
 }
+
+
+
+
+
 
 

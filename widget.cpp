@@ -2,21 +2,22 @@
 #include "widget.hpp"
 #include <iostream>
 
-Widget::Widget() 
+using namespace genv;
+
+const int contourWidth = 2;
+
+Widget::Widget()
 {
     itsX = 0;
     itsY = 0;
     sizeX=0;
     sizeY=0;
-    focused = false;
 };
 Widget::Widget(int x, int y) : itsX(x), itsY(y)
 {
-    focused = false;
 }
 Widget::Widget(int x, int y, int sx, int sy) : itsX(x), itsY(y), sizeX(sx), sizeY(sy)
 {
-    focused = false;
 }
 
 int Widget::getY() const
@@ -29,30 +30,37 @@ void Widget::setY(int y)
     itsY = y;
 }
 
-void Widget::setFocus(int mouseX, int mouseY)
-{
-    //allandoan ellenorizni kell hogy folotte van-e az eger,
-    //ezert a leszarmazottak ezt a handle fv-ukben szepen meghivjak majd
-     if     (mouseX > itsX &&
-            mouseX < itsX + sizeX &&
-            mouseY > itsY &&
-            mouseY < itsY + sizeY )
-    {
-        focused = true;
-    }
-    else focused = false;
-}
 
-bool Widget::isFocused() const    //getter
-{
-   return focused;
-}
 
 void Widget::Draw() const {}
 
-void Widget::Handle(genv::event ev) {}
+void Widget::DrawContour(bool clicked) const
+{
+    if(clicked)
+    {
+        gout << move_to(itsX-contourWidth, itsY-contourWidth)
+             << color(240,240,240)
+             << box( sizeX + 2*contourWidth, sizeY + 2*contourWidth );
+    }
+    else
+    {
+        gout << move_to(itsX-contourWidth, itsY-contourWidth)
+             << color(171,230,170)
+             << box( sizeX + 2*contourWidth, sizeY + 2*contourWidth );
+    }
+}
 
-bool Widget::is_selected(int mouseX,int mouseY) const
+void Widget::Handle(event ev)
+{
+    this -> HandleSelected(ev);
+}
+
+void Widget::HandleSelected(event ev)
+{
+    this -> DrawContour(this->Selected(ev.pos_x,ev.pos_y));
+}
+
+bool Widget::Selected(int mouseX,int mouseY) const
 {
     return (mouseX > itsX &&
             mouseX < itsX + sizeX &&
