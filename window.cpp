@@ -29,7 +29,6 @@ void Window::Fuss()
         }
         ///azert elobb handle, mert így azt rajzolja ami tortenik
         ///nem pedig lerajzol valamit aztan valtoztat
-        cout << l->getObjectsSize()<<endl;
 
 
         gout << refresh;
@@ -63,6 +62,12 @@ App::App()
                             Kiir();
                         });
 
+    meret = new Button(70,160,"Meret");
+    meret->setCallBack([&]()
+                        {
+                            cout << l->getObjectsSize()<< endl;
+                        });
+
     s = new Statictext(70,200,"");
 
     w.push_back(s);
@@ -71,6 +76,7 @@ App::App()
     w.push_back(kivesz);
     w.push_back(t);
     w.push_back(szambe);
+    w.push_back(meret);
 
 
 }

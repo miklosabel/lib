@@ -28,6 +28,7 @@ class App : public Window
         Button * kivesz;
         List * l;
         Statictext * s;
+        Button * meret;
 
 
     public:

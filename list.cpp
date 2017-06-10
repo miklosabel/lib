@@ -90,30 +90,31 @@ void List::Handle(event ev)
 
     if (ev.type == ev_mouse && this -> Selected(ev.pos_x, ev.pos_y))
     {
-//        if (ev.button == btn_wheeldown && objects.size() > itsY/cellSize)
-//        {
-//            if (scrollOffset+itsY/cellSize < this -> objects.size())
-//            {
-//                scrollOffset++;
-//            }
-//            Scroll(scrollOffset);
-//        }
-//        if (ev.button == btn_wheelup && objects.size() > itsY/cellSize)
-//        {
-//            if (scrollOffset > 0)
-//            {
-//                scrollOffset--;
-//            }
-//            Scroll(scrollOffset);
-//        }
+        if (ev.button == btn_wheeldown && objects.size() > itsY/cellSize)
+        {
+            if (scrollOffset+itsY/cellSize < this -> objects.size())
+            {
+                scrollOffset++;
+            }
+            Scroll(scrollOffset);
+        }
+        if (ev.button == btn_wheelup && objects.size() > itsY/cellSize)
+        {
+            if (scrollOffset > 0)
+            {
+                scrollOffset--;
+            }
+            Scroll(scrollOffset);
+        }
 
 
         absIndex = (ev.pos_y - itsY)/cellSize;
+        int relativeIndex = absIndex + scrollOffset;
 //        cout << (ev.pos_y - itsY)/cellSize << "\t" << itsY << "\t" << cellSize << "\t" << sizeY<< endl;
         if (ev.button == btn_left)
         {
             for (int i = 0; i < objects.size(); i++) objects[i]->selected = false;
-            objects[absIndex] -> selected = true;
+            objects[relativeIndex] -> selected = true;
         }
     }
 }
@@ -159,13 +160,13 @@ void List::addObject(string title)
 
 void List::Scroll(int offset)
 {
-//    if (cells.size() > 0)
-//    {
-//        for (int i = offset; i < offset + sizeY/cellSize; i++)
-//        {
-//            cells[i-offset] -> setObject(objects[i]);
-//        }
-//    }
+    if (cells.size() > 0)
+    {
+        for (int i = offset; i < offset + sizeY/cellSize; i++)
+        {
+            cells[i-offset] -> setObject(objects[i]);
+        }
+    }
 }
 
 vector<ListObject *> List::getObjects() const {return objects;}
