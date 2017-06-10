@@ -1,7 +1,6 @@
 #include "list.hpp"
 #include <iostream>
-#include <stdlib.h>
-
+#include <algorithm>
 using namespace std;
 using namespace genv;
 
@@ -25,7 +24,7 @@ ListCell::ListCell(int x, int y, int sx, int sy, ListObject * _obj)
 void ListCell::Draw() const
 {
     ///keret
-    if (object -> selected) gout << color(148,255,135);
+    if (object -> selected) gout << color(148,200,200);
     else gout << color(boxColour.r(),boxColour.g(),boxColour.b());
 
     gout<< move_to(itsX, itsY)
@@ -44,10 +43,9 @@ void ListCell::Handle(event ev)
 ///eger felette->lilas szin, egyebkent alapszin
 void ListCell::setCellBackground(event ev, bool _selected)
 {
-    if (_selected) this -> boxColour = colour(150,185,255);
+    if (_selected) this -> boxColour = colour(150,185,230);
     else this -> boxColour = colour(81,109,107);
 }
-
 
 void ListCell::setTitle(string _title)
 {
@@ -147,6 +145,7 @@ void List::initWithArray(vector<string> _objects)
         }
     }
     this -> init();
+    absIndex = 0;
 }
 
 void List::addObject(string title)
@@ -199,3 +198,12 @@ int List::getObjectsSize() const
     return objects.size();
 }
 
+void List::eraseObject()
+{
+    vector<string> _objects;
+    for (int i = 0; i < objects.size(); i++)
+    {
+        if (!(objects[i]->selected)) _objects.push_back(objects[i]->s);
+    }
+    initWithArray(_objects);
+}

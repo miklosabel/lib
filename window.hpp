@@ -7,6 +7,7 @@
 #include "szambe.hpp"
 #include "textbox.hpp"
 #include "list.hpp"
+#include "checkbox.hpp"
 
 class Window
 {
@@ -30,6 +31,9 @@ class App : public Window
         List * l;
         Statictext * s;
         Button * meret;
+        Button * torol;
+
+        Checkbox * pipa;
 
 
 

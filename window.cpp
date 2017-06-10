@@ -1,5 +1,6 @@
 #include "window.hpp"
 #include <iostream>
+#include <algorithm>
 
 using namespace genv;
 using namespace std;
@@ -44,7 +45,7 @@ void Clear()
 
 App::App()
 {
-    vector<string> obj;
+    vector<string> obj {"Sandor", "Jozsef","Benedek","Zsak","Kolomper","Ejjnyeno"};
     l = new List(300,100,100,87, obj);
     percek = new Szambe(145,20,-1,31,59);
     orak = new Szambe(70,20,-1,24,13);
@@ -69,16 +70,26 @@ App::App()
                             cout << l->getObjectsSize()<< endl;
                         });
 
-    s = new Statictext(70,200,"");
+    torol = new Button(70,190,"Torol");
+    torol->setCallBack([&]()
+                       {
+                            l->eraseObject();
+                       });
+
+
+    s = new Statictext(70,220,"");
+    pipa = new Checkbox(70,250,20,20);
 
     w.push_back(orak);
+    w.push_back(percek);
     w.push_back(s);
     w.push_back(l);
+    w.push_back(t);
     w.push_back(beletolt);
     w.push_back(kivesz);
-    w.push_back(t);
-    w.push_back(percek);
     w.push_back(meret);
+    w.push_back(torol);
+    w.push_back(pipa);
 }
 
 ///probalkozas a megfelelo mukodesre
@@ -91,3 +102,8 @@ void App::Kiir()
 {
     s->setText(l->getSelectedObject());
 }
+
+
+
+//    ///vektorelemek sorbarendezese
+//    sort(objects.begin(), objects.end());

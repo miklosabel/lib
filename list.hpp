@@ -58,7 +58,7 @@ private:
     std::vector<ListObject *> objects;
     std::vector<ListCell *> cells;
     int selectedIndex = -1;
-    float absIndex = 0;
+    int absIndex = 0;
 
 public:
     List(int x, int y, int sx, int sy, std::vector<std::string> obj);
@@ -76,6 +76,8 @@ public:
     int getSelectedIndex() const;
 
     int getObjectsSize() const;
+
+    void eraseObject();
 
 };
 

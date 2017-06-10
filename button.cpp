@@ -57,6 +57,7 @@ void Button::Handle(event ev)
 {
     if (Selected(ev.pos_x, ev.pos_y))
     {
+        this -> HandleSelected(ev);
         if (ev.button == btn_left)
         {
             this -> pressed = true;
