@@ -110,7 +110,6 @@ void List::Handle(event ev)
 
         absIndex = (ev.pos_y - itsY)/cellSize;
         int relativeIndex = absIndex + scrollOffset;
-//        cout << (ev.pos_y - itsY)/cellSize << "\t" << itsY << "\t" << cellSize << "\t" << sizeY<< endl;
         if (ev.button == btn_left)
         {
             for (int i = 0; i < objects.size(); i++) objects[i]->selected = false;
@@ -119,7 +118,6 @@ void List::Handle(event ev)
     }
 }
 
-//ListObject* &obj : objects
 
 
 void List::init()
@@ -184,7 +182,7 @@ string List::getSelectedObject() const
     {
         if (obj -> selected) return obj->s;
     }
-    return "not_selected";
+    return "none_selected";
 }
 
 int List::getSelectedIndex() const

@@ -55,23 +55,14 @@ void Szambe::Handle(event ev)
         increment -> Handle(ev);
         decrement -> Handle(ev);
 
+        ///gorgetheto beallitas
         if (ev.button == btn_wheeldown) DecrementNum();
         if (ev.button == btn_wheelup) IncrementNum();
 
-        ///atfordulast lehetove tevo utasitasok - csak also hatarnal mukodik
-        if (num+1 > maxLimit) num = minLimit;
-        if (num-1 < minLimit) num = maxLimit;
+        ///atfordulast lehetove tevo utasitasok- trukkozni kellett, a hatarokat is egy-egyel ki kell tolni
+        if (num >= maxLimit) num = minLimit+1;
+        if (num <= minLimit) num = maxLimit-1;
     }
-
-    ///gombnyomasra torteno valtoztatasok - nem mukodnek, mert nem tudja egyszerre nézni, hogy
-    ///az eger folotte van-e, es billentyuesemeny-e
-//    if (ev.type == ev_key)
-//    {
-//        if (ev.keycode == key_up && num < maxLimit) IncrementNum();
-//        if (ev.keycode == key_down && num > minLimit) DecrementNum();
-//        if ( ((num-10) > minLimit) && ev.keycode == key_pgdn) num-=10;
-//        if ( ((num+10) < maxLimit) && ev.keycode == key_pgup) num+=10;
-//    }
 
     ///keretrajzolas, ha folotte az eger
     this -> HandleSelected(ev);

@@ -46,7 +46,8 @@ App::App()
 {
     vector<string> obj;
     l = new List(300,100,100,87, obj);
-    szambe = new Szambe(20,20,20,110,23);
+    percek = new Szambe(145,20,-1,31,59);
+    orak = new Szambe(70,20,-1,24,13);
 
 
     t = new Textbox(70, 45, 10, 4+gout.cdescent()+gout.cascent(),"");
@@ -70,21 +71,20 @@ App::App()
 
     s = new Statictext(70,200,"");
 
+    w.push_back(orak);
     w.push_back(s);
     w.push_back(l);
     w.push_back(beletolt);
     w.push_back(kivesz);
     w.push_back(t);
-    w.push_back(szambe);
+    w.push_back(percek);
     w.push_back(meret);
-
-
 }
 
 ///probalkozas a megfelelo mukodesre
 void App::Fill()
 {
-    l->addObject(t->getTitle() + " (" +to_string(szambe->getNum()) + ")" );
+    l->addObject(t->getTitle() + " (" +to_string(percek->getNum()) + ")" );
 }
 
 void App::Kiir()

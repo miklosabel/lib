@@ -21,14 +21,16 @@ class App : public Window
 {
     protected:
         ///minden ami az adott feladathoz szukseges
-        Szambe * szambe;
 
+        Szambe * percek;
+        Szambe * orak;
         Textbox * t;
         Button * beletolt;
         Button * kivesz;
         List * l;
         Statictext * s;
         Button * meret;
+
 
 
     public:

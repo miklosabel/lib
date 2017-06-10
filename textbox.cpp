@@ -26,7 +26,7 @@ Textbox::Textbox(int x, int y, int sx, int sy, string _s) : Widget(x, y, sx, sy)
 
 void Textbox::Draw() const
 {
-    gout << color(90,109,89);
+    gout << color(81,109,107);
     gout << move_to(itsX, itsY)
          << box(sizeX,sizeY)
          << move_to(itsX+5, itsY+gout.cascent()+2)
