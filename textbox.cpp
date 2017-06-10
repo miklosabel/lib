@@ -30,10 +30,10 @@ void Textbox::Draw() const
     gout << move_to(itsX, itsY)
          << box(sizeX,sizeY)
          << move_to(itsX+5, itsY+gout.cascent()+2)
-         << color(250,250,250);
+         << color(240,240,240);
     if (s.empty()) gout << text("");
     if (!s.empty()) gout << text(s);
-    if (clicked) gout << color(250,250,250) << text("|"); //kurzor
+    if (clicked) gout << color(240,240,240) << text("|"); //kurzor
 
 }
 
@@ -63,5 +63,5 @@ void Textbox::Handle(event ev)
     if (!s.empty() && clicked) sizeX = gout.twidth(s) + 10;
 }
 
-
+string Textbox::getTitle() { return s; }
 

@@ -35,18 +35,6 @@ int main()
 //    Clear();
 //
 //    vector<Widget *> w;
-//
-//    Szambe * s1 = new Szambe(10, 10, 95, 152, 111);
-//    Szambe * s2 = new Szambe(200, 10, 30, 70, 55);
-
-//    Kival * k1 = new Kival(10, 100, 15, 3);
-//    Kival * k2 = new Kival(300,100, 20, 5);
-
-//    w.push_back(b1);
-//    w.push_back(s1);
-//    w.push_back(s2);
-//    w.push_back(k1);
-//    w.push_back(k2);
 
     App * A = new App();
     A -> Fuss();

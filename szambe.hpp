@@ -28,6 +28,8 @@ public:
 
     void IncrementNum();
     void DecrementNum();
+
+    int getNum();
 };
 
 

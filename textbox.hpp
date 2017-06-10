@@ -20,6 +20,8 @@ public:
     virtual void Draw() const;
     virtual void Handle(genv::event ev);
 
+    std::string getTitle();
+
     /// bool isSelected() const;
     /// void setSelected(bool b);
 

@@ -1,5 +1,5 @@
-#ifndef WIDGET_HPP_INCLUDED
-#define WIDGET_HPP_INCLUDED
+#ifndef WIDGET_HPP
+#define WIDGET_HPP
 
 #include <functional>
 #include "graphics.hpp"
@@ -49,10 +49,6 @@ public:
     {
         callback = _fn;
     }
-
-
-
-
 };
 
-#endif //WIDGETS_HPP
+#endif //WIDGET_HPP

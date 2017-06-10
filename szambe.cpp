@@ -63,7 +63,8 @@ void Szambe::Handle(event ev)
         if (num-1 < minLimit) num = maxLimit;
     }
 
-    ///gombnyomasra torteno valtoztatasok - nem mukodnek
+    ///gombnyomasra torteno valtoztatasok - nem mukodnek, mert nem tudja egyszerre nézni, hogy
+    ///az eger folotte van-e, es billentyuesemeny-e
 //    if (ev.type == ev_key)
 //    {
 //        if (ev.keycode == key_up && num < maxLimit) IncrementNum();
@@ -93,3 +94,5 @@ void Szambe::DecrementNum()
 {
     if (this->num > this->minLimit) this->num--;
 }
+
+int Szambe::getNum() { return num; }

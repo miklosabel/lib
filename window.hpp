@@ -5,8 +5,8 @@
 #include "widget.hpp"
 
 #include "szambe.hpp"
-#include "kival.hpp"
 #include "textbox.hpp"
+#include "list.hpp"
 
 class Window
 {
@@ -22,16 +22,18 @@ class App : public Window
     protected:
         ///minden ami az adott feladathoz szukseges
         Szambe * szambe;
-        Szambe * s2;
-        Kival * kival;
-        Statictext * st;
-        Statictext * st2;
+
         Textbox * t;
-        Button * b;
+        Button * beletolt;
+        Button * kivesz;
+        List * l;
+        Statictext * s;
 
 
     public:
         App();
+        void Fill();
+        void Kiir();
 };
 
 
