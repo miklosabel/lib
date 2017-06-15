@@ -15,6 +15,10 @@ int colour::b() const {return pb;}
 ///ListObject fuggvenyek
 ListObject::ListObject(string _s) : s(_s), selected(false) {}
 
+///BEADAS UTAN-----------------------------------------------------------------
+string ListObject::getTitle() const { return s; }
+///----------------------------------------------------------------------------
+
 ///ListCell fuggvenyek
 ListCell::ListCell(int x, int y, int sx, int sy, ListObject * _obj)
     : Widget(x,y,sx,sy),
@@ -56,6 +60,10 @@ void ListCell::setObject(ListObject * _o)
 {
     object = _o;
 }
+///BEADAS UTAN--------------------------------------------------------
+string ListCell::getTitle() const { return object->getTitle(); }
+///-------------------------------------------------------------------
+
 
 ///List fuggvenyek
 List::List(int x, int y, int sx, int sy, vector<string> obj)
@@ -88,15 +96,15 @@ void List::Handle(event ev)
 
     if (ev.type == ev_mouse && this -> Selected(ev.pos_x, ev.pos_y))
     {
-        if (ev.button == btn_wheeldown && objects.size() > itsY/cellSize)
+        if (ev.button == btn_wheeldown && objects.size() > (unsigned int)itsY/cellSize)
         {
-            if (scrollOffset+itsY/cellSize < this -> objects.size())
+            if ((unsigned int)scrollOffset+itsY/cellSize < this -> objects.size())
             {
                 scrollOffset++;
             }
             Scroll(scrollOffset);
         }
-        if (ev.button == btn_wheelup && objects.size() > itsY/cellSize)
+        if (ev.button == btn_wheelup && objects.size() > (unsigned int)itsY/cellSize)
         {
             if (scrollOffset > 0)
             {
@@ -110,7 +118,7 @@ void List::Handle(event ev)
         int relativeIndex = absIndex + scrollOffset;
         if (ev.button == btn_left)
         {
-            for (int i = 0; i < objects.size(); i++) objects[i]->selected = false;
+            for (unsigned int i = 0; i < objects.size(); i++) objects[i]->selected = false;
             objects[relativeIndex] -> selected = true;
         }
     }
@@ -168,6 +176,7 @@ void List::Scroll(int offset)
 
 vector<ListObject *> List::getObjects() const {return objects;}
 
+///cimek kivetele
 vector<string> List::getTitles() const
 {
     vector<string> titles;
@@ -186,7 +195,7 @@ string List::getSelectedObject() const
 
 int List::getSelectedIndex() const
 {
-    for (int i = 0; i < objects.size(); i++)
+    for (unsigned int i = 0; i < objects.size(); i++)
     {
         if (objects[i]->selected) return i;
     }
@@ -198,12 +207,15 @@ int List::getObjectsSize() const
     return objects.size();
 }
 
+
+///elem torlese a listabol
 void List::eraseObject()
 {
     vector<string> _objects;
-    for (int i = 0; i < objects.size(); i++)
+    for (unsigned int i = 0; i < objects.size(); i++)
     {
         if (!(objects[i]->selected)) _objects.push_back(objects[i]->s);
     }
     initWithArray(_objects);
+    absIndex = 0; ///BEADAS UTAN
 }

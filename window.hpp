@@ -2,8 +2,9 @@
 #define WINDOW_HPP
 
 #include <vector>
-#include "widget.hpp"
+#include <utility>
 
+#include "widget.hpp"
 #include "szambe.hpp"
 #include "textbox.hpp"
 #include "list.hpp"
@@ -16,31 +17,45 @@ class Window
     public:
         virtual void Fuss();
 };
-
+///BEADAS UTAN-------------------------
+struct musor
+{
+    std::string cim;
+    int ora;
+    int perc;
+    int kezdespercben;
+    int hossz;
+};
+///--------------------------------------
 
 class App : public Window
 {
-    protected:
+private:
+    std::vector<musor> musorok;
+
+protected:
         ///minden ami az adott feladathoz szukseges
 
-        Szambe * percek;
-        Szambe * orak;
-        Textbox * t;
-        Button * beletolt;
-        Button * kivesz;
-        List * l;
-        Statictext * s;
-        Button * meret;
-        Button * torol;
+    Szambe * percek;
+    Szambe * orak;
+    Szambe * hosszok;
+    Textbox * t;
+    Button * beletolt;
+    Button * kivesz;
+    List * l;
+    Statictext * s;
+    Button * meret;
+    Button * torol;
 
-        Checkbox * pipa;
+    Checkbox * pipa;
 
 
 
-    public:
-        App();
-        void Fill();
-        void Kiir();
+public:
+    App();
+    void Fill();
+    void Kiir();
+    void updateLength();
 };
 
 

@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+
+
 ///szinhez kell, ha megbuknek kibovitem a tobbi widgetre is
 class colour
 {
@@ -29,6 +31,7 @@ public:
     ListObject(std::string _s);
     std::string s;
     bool selected;
+    std::string getTitle() const; ///BEADAS UTAN
 };
 
 
@@ -48,6 +51,7 @@ public:
     void setObject(ListObject * _o);
     void setCellBackground(genv::event ev, bool _selected);
     void setTitle(std::string _title);
+    std::string getTitle() const; ///BEADAS UTAN
 };
 
 ///maga a lista

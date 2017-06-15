@@ -45,10 +45,12 @@ void Clear()
 
 App::App()
 {
-    vector<string> obj {"Sandor", "Jozsef","Benedek","Zsak","Kolomper","Ejjnyeno"};
-    l = new List(300,100,100,87, obj);
-    percek = new Szambe(145,20,-1,31,59);
-    orak = new Szambe(70,20,-1,24,13);
+    vector<string> obj;
+
+    l = new List(300,100,140,87, obj);
+    percek = new Szambe(145,20,-1,60,00);
+    orak = new Szambe(70,20,-1,24,00);
+    hosszok = new Szambe(220,20,-1,500,10);
 
 
     t = new Textbox(70, 45, 10, 4+gout.cdescent()+gout.cascent(),"");
@@ -56,24 +58,27 @@ App::App()
     beletolt -> setCallBack([&]()
                         {
                             Fill();
+                            cout << endl;
                         });
 
-    kivesz = new Button(70,130,"Kiir");
-    kivesz->setCallBack([&]()
-                        {
-                            Kiir();
-                        });
 
-    meret = new Button(70,160,"Meret");
-    meret->setCallBack([&]()
-                        {
-                            cout << l->getObjectsSize()<< endl;
-                        });
+//    kivesz = new Button(70,130,"Kiir");
+//    kivesz->setCallBack([&]()
+//                        {
+//                            Kiir();
+//                        });
+
+//    meret = new Button(70,160,"Meret");
+//    meret->setCallBack([&]()
+//                        {
+//                            cout << l->getObjectsSize()<< endl;
+//                        });
 
     torol = new Button(70,190,"Torol");
     torol->setCallBack([&]()
                        {
                             l->eraseObject();
+                            musorok.erase(musorok.begin()+l->getSelectedIndex());
                        });
 
 
@@ -82,28 +87,74 @@ App::App()
 
     w.push_back(orak);
     w.push_back(percek);
+    w.push_back(hosszok);
     w.push_back(s);
     w.push_back(l);
     w.push_back(t);
     w.push_back(beletolt);
-    w.push_back(kivesz);
-    w.push_back(meret);
+//    w.push_back(kivesz);
+//    w.push_back(meret);
     w.push_back(torol);
     w.push_back(pipa);
 }
 
+bool sortByName(const musor &lhs, const musor &rhs) { return lhs.kezdespercben < rhs.kezdespercben; }
+
 ///probalkozas a megfelelo mukodesre
 void App::Fill()
 {
-    l->addObject(t->getTitle() + " (" +to_string(percek->getNum()) + ")" );
+    musor m;
+    m.cim = t->getTitle();
+    m.ora = orak->getNum();
+    m.perc = percek -> getNum();
+    m.hossz = hosszok -> getNum();
+    m.kezdespercben = m.ora*60 + m.perc; // kell hogy osszehasonlithatoak legyenek az idok
+    bool isMusorExist = false;
+
+///Utkozesvizsgalat -- BEADAS UTAN------------------------------------------------
+    for (unsigned int i = 0; i < musorok.size(); i++)
+    {
+        if (musorok[i].kezdespercben <= m.kezdespercben)
+        {
+            if(musorok[i].kezdespercben+musorok[i].hossz >= m.kezdespercben) isMusorExist = true;
+        }
+        else if (musorok[i].kezdespercben >= m.kezdespercben)
+        {
+            if(musorok[i].kezdespercben <= m.kezdespercben+m.hossz) isMusorExist = true;
+        }
+    }
+
+    if (!isMusorExist) musorok.push_back(m);
+
+///sorbarendezes --- BEADAS UTAN--------------------------------------------
+    sort(musorok.begin(), musorok.end(), sortByName);
+///----------------------------------------------------------------------------
+    this -> updateLength();
 }
 
-void App::Kiir()
+//void App::Kiir()
+//{
+//    for (unsigned int i=0;i<musorok.size();i++)
+//    {
+//        cout << l->getTitles()[i] <<" \t"<< musorok[i].cim << endl;
+//    }
+//    cout << endl;
+//}
+
+///BEADAS UTAN-------------------------------------------------------
+
+
+void App::updateLength()
 {
-    s->setText(l->getSelectedObject());
+    vector<string> feltolto;
+    for (musor temp : musorok)
+    {
+        feltolto.push_back(temp.cim + " " + to_string(temp.hossz));
+    }
+    l->initWithArray(feltolto);
 }
 
 
-
+///--------------------------------------------------------------------
 //    ///vektorelemek sorbarendezese
 //    sort(objects.begin(), objects.end());

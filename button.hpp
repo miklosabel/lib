@@ -24,8 +24,6 @@ public:
     virtual void Draw() const;
     virtual void Handle(genv::event ev);
 
-
-
     bool isPressed() const;
     void setX(int x);
 
